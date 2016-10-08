@@ -12,17 +12,19 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKey("left"))
-        {
-            rb.velocity = Vector2.left*velocity;
-        }
-        else if(Input.GetKey("right"))
-        {
-            rb.velocity = Vector2.right * velocity;
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
+
 	}
+    public void GoLeft()
+    {
+        rb.velocity = Vector2.left * velocity;
+    }
+    public void GoRight()
+    {
+        rb.velocity = Vector2.right * velocity;
+    }
+    public void ResetVelocity()
+    {
+        Debug.Log("test");
+        rb.velocity = Vector2.zero;
+    }
 }

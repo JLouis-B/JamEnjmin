@@ -8,7 +8,7 @@ public class CrowdManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        crowdNumber = 50;
+        crowdNumber = 5;
         // at start spawning the crowd
         for (int i =0;i<crowdNumber;i++)
         GameObject.Instantiate(spawner);
@@ -18,4 +18,9 @@ public class CrowdManager : MonoBehaviour {
 	void Update () {
 	
 	}
+    //Tombelaaaaaaaa !
+    void Tombela()
+    {
+        GameObject.Instantiate(spawner);
+    }
 }

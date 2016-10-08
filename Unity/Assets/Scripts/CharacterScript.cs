@@ -7,13 +7,12 @@ public class CharacterScript : MonoBehaviour {
     private GameObject player;
     // Use this for initialization
     void Start () {
-        baseforce = 5;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         MoveRandom();
         Vector3 playerpos = (player.GetComponent<Transform>().position - rb.transform.position);
         MoveToPlayerVelocity();
@@ -43,7 +42,7 @@ public class CharacterScript : MonoBehaviour {
     void MoveToPlayerVelocity()
     {
         Vector3 playerpos = (player.GetComponent<Transform>().position - rb.transform.position);
-            playerpos.Set(playerpos.x, playerpos.y - 5, playerpos.z);
+            playerpos.Set(playerpos.x, playerpos.y - 2, playerpos.z);
             // Moving towards the player
             rb.AddForce(playerpos.normalized);
     }
