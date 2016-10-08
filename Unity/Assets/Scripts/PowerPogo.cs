@@ -52,8 +52,9 @@ public class PowerPogo : MonoBehaviour
 					nbTarget++;
 				}
 			}
-				
-			nbTarget++;
+
+			if (nbTarget > 0)
+				nbTarget++;
 			for (int i = 0; i < nbTarget; ++i)
 			{
 				int id = Random.Range (0, publicObjs.Count - i);
