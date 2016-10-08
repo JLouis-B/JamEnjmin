@@ -4,20 +4,16 @@ using System.Collections.Generic;
 
 public class PowerPogo : MonoBehaviour
 {
-	public float radius = 1f;
+	public float _radius = 1f;
 
 	private bool _readyToClick = false;
-
-	void Start () {
-	
-	}
 
 	List<GameObject> getPublic()
 	{
 		GameObject[] publicObjs = GameObject.FindGameObjectsWithTag ("Public");
 		List<GameObject> publics = new List<GameObject>();
 		foreach (GameObject p in publicObjs)
-			if (p.GetComponent<PublicController> ()._hp > 0)
+			if (p.GetComponent<PublicController>()._hp > 0)
 				publics.Add (p);
 
 		return publics;
@@ -32,6 +28,8 @@ public class PowerPogo : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown (0) && _readyToClick)
 		{
+			_readyToClick = false;
+
 			List<GameObject> publicObjs = getPublic();
 			if (publicObjs.Count <= 0)
 				return;
@@ -45,8 +43,7 @@ public class PowerPogo : MonoBehaviour
 			{
 				float distance = Vector3.Distance (worldPos, crs.transform.position);
 				bool hp = crs.GetComponent<CRSController> ()._hp;
-
-				if (hp && distance < radius)
+				if (hp && distance < _radius)
 				{
 					crs.GetComponent<CRSController> ()._hp = false;
 					nbTarget++;
@@ -56,12 +53,14 @@ public class PowerPogo : MonoBehaviour
 			nbTarget++;
 			for (int i = 0; i < nbTarget; ++i)
 			{
+				if (publicObjs.Count - i < 1)
+					return;
+
 				int id = Random.Range (0, publicObjs.Count - i);
-				publicObjs [id].GetComponent<PublicController>()._hp = -1;
-				publicObjs [id].GetComponent<Collider2D> ().enabled = false;
+				GameObject p = publicObjs[id];
+				p.GetComponent<PublicController>()._hp = -1;
+				p.GetComponent<Collider2D> ().enabled = false;
 			}
-				
-			_readyToClick = false;
 		}
 	}
 }
