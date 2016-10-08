@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PublicController : MonoBehaviour {
 
-	public GameObject _scene = null;
+	private GameObject _scene = null;
 	public float _hp = 1f;
 
 	private Rigidbody2D _rigidbody = null;
@@ -11,13 +11,16 @@ public class PublicController : MonoBehaviour {
 	void Start ()
 	{
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		_scene = GameObject.FindGameObjectWithTag ("Scene");
+
+		Debug.Log ("HP = " + _hp);
 	}
 	
 	void Update ()
 	{
 		if (_hp <= 0)
 		{
-			_rigidbody.velocity = (transform.position - GameObject.FindGameObjectWithTag ("Scene").transform.position).normalized;
+			_rigidbody.velocity = (transform.position - _scene.transform.position).normalized;
 		}
 	}
 
