@@ -5,7 +5,6 @@ public class CrowdManager : MonoBehaviour {
 
     public GameObject spawner;
     public int crowdNumber;
-    public ArrayList groupies;
 
 	// Use this for initialization
 	void Start () {
@@ -20,15 +19,11 @@ public class CrowdManager : MonoBehaviour {
 	
 	}
     //Tombelaaaaaaaa !
-    public void Tombela(int numberOfGroupie)
+    public void Tombela(Vector3 v,int numberOfGroupie)
     {
         for(int i = 0;i<numberOfGroupie;i++)
         {
-            groupies.Add(GameObject.Instantiate(spawner));
+            GameObject.Instantiate(spawner, v,new Quaternion());
         }
-    }
-    public void GroupieLost(int numberofgroupielost)
-    {
-        groupies.RemoveRange(0,numberofgroupielost);
     }
 }

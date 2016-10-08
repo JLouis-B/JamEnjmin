@@ -7,6 +7,8 @@ public class PowerAqua : MonoBehaviour {
 
     private bool _readyToClick = false;
 
+    public GameObject spawned;
+
     void Start()
     {
 
@@ -32,36 +34,26 @@ public class PowerAqua : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && _readyToClick)
         {
-            List<GameObject> publicObjs = getPublic();
-            if (publicObjs.Count <= 0)
-                return;
+            _readyToClick = false;
 
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;
 
-            int nbTarget = 0;
             GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
             foreach (GameObject crs in CrsObjs)
             {
                 float distance = Vector3.Distance(worldPos, crs.transform.position);
                 bool hp = crs.GetComponent<CRSController>()._hp;
-
                 if (hp && distance < radius)
                 {
-                    crs.GetComponent<CRSController>()._hp = false;
-                    nbTarget++;
+                    Vector3 v = crs.transform.position;
+                    CrowdManager cm = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CrowdManager>();
+                    GameObject.Instantiate(spawned,v,new Quaternion());
+                    Object.Destroy(crs);
                 }
             }
-
-            nbTarget++;
-            for (int i = 0; i < nbTarget; ++i)
-            {
-                int id = Random.Range(0, publicObjs.Count - i);
-                publicObjs[id].GetComponent<PublicController>()._hp = -1;
-                publicObjs[id].GetComponent<Collider2D>().enabled = false;
-            }
-
-            _readyToClick = false;
+        
+        _readyToClick = false;
         }
     }
 }
