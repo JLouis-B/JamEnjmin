@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum SpawnMode
-{
-	SpawnRandom,
-	SpawnPoints
-}
-
-
 
 [System.Serializable]
 public class Wave
@@ -31,6 +24,8 @@ public class CRS_Spawner : MonoBehaviour
 
 	private float _timer = 0f;
 	private int _waveIndex = 0;
+
+	Wave _newWave = new Wave();
 
 	IEnumerator spawnWithDelay()
 	{
@@ -56,13 +51,20 @@ public class CRS_Spawner : MonoBehaviour
 
 	void Start()
 	{
+		_newWave = _waves [0];
 		spawnWave ();
 	}
 
 	void spawnWave()
 	{
-		Wave newWave = _waves[_waveIndex];
-		for (int i = 0; i < newWave.nbSpawns; ++i)
+		if (_waveIndex < _waves.Length)
+			_newWave = _waves [_waveIndex];
+		else {
+			_newWave = _waves [_waves.Length - 1];
+			_newWave.nbSpawns += (_waveIndex - _waves.Length);
+		}
+
+		for (int i = 0; i < _newWave.nbSpawns; ++i)
 		{
 			StartCoroutine ("spawnWithDelay");
 		}
@@ -71,12 +73,11 @@ public class CRS_Spawner : MonoBehaviour
 	void Update ()
 	{
 		_timer += Time.deltaTime;
-		if (_waveIndex < _waves.Length && _timer > _waves[_waveIndex].fulltime)
+		if (_timer > _newWave.fulltime)
 		{
 			_timer = 0;
 			_waveIndex++;
-			if (_waveIndex < _waves.Length)
-				spawnWave();
+			spawnWave();
 		}
 	}
 }
