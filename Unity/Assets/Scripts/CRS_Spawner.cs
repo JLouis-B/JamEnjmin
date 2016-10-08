@@ -29,7 +29,7 @@ public class CRS_Spawner : MonoBehaviour
 
 	IEnumerator spawnWithDelay()
 	{
-		float delay = Random.Range (0, _waves[_waveIndex].spawnTime);
+		float delay = Random.Range (0, _newWave.spawnTime);
 		yield return new WaitForSeconds (delay);
 
 
