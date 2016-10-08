@@ -48,7 +48,6 @@ public class PowerAqua : MonoBehaviour {
                 {
                     Vector3 v = crs.transform.position;
 					Destroy(crs);
-                    CrowdManager cm = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CrowdManager>();
                     GameObject.Instantiate(spawned,v,new Quaternion());
                 }
             }
