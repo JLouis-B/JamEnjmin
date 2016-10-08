@@ -48,8 +48,8 @@ public class CharacterScript : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Enemy")
-            coll.gameObject.SendMessage("ApplyDamage", 10);
+        if (coll.gameObject.tag == "CRS")
+            coll.gameObject.GetComponent<CRSController>()._hp = false;
 
     }
 
