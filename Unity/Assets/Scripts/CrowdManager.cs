@@ -26,4 +26,11 @@ public class CrowdManager : MonoBehaviour {
             GameObject.Instantiate(spawner, v,new Quaternion());
         }
     }
+    public void Tombela(int numberOfGroupie)
+    {
+        for (int i = 0; i < numberOfGroupie; i++)
+        {
+            GameObject.Instantiate(spawner);
+        }
+    }
 }

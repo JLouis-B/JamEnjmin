@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PowerAqua : MonoBehaviour {
+    public ParticleSystem pe;
     public float radius = 1f;
 
     private bool _readyToClick = false;
@@ -11,7 +12,6 @@ public class PowerAqua : MonoBehaviour {
 
     void Start()
     {
-
     }
 
     List<GameObject> getPublic()

@@ -46,5 +46,11 @@ public class CharacterScript : MonoBehaviour {
             // Moving towards the player
             rb.AddForce(playerpos.normalized);
     }
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+            coll.gameObject.SendMessage("ApplyDamage", 10);
+
+    }
 
 }
