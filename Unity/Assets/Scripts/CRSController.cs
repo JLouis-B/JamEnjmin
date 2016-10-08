@@ -46,7 +46,10 @@ public class CRSController : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Public") {
-			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
+			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D> ());
+		} else if (coll.gameObject.tag == "Scene") {
+			Application.Quit ();
+			Debug.Log ("FAIL");
 		}
 	}
 
