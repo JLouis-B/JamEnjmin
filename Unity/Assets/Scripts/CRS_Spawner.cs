@@ -19,7 +19,7 @@ public class Wave
 }
 
 
-public class Spawner : MonoBehaviour
+public class CRS_Spawner : MonoBehaviour
 {
 	public GameObject _spawnObject = null;
 	public Wave[] _waves;
