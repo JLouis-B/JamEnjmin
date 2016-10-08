@@ -6,7 +6,7 @@ public class CharacterScript : MonoBehaviour {
     public Rigidbody2D rb;
     // Use this for initialization
     void Start () {
-        baseforce = 1;
+        baseforce = 5;
         rb = GetComponent<Rigidbody2D>();
 	}
 	
@@ -16,22 +16,23 @@ public class CharacterScript : MonoBehaviour {
         Vector3 playerpos = (player.GetComponent<Transform>().position - rb.transform.position);
         if (GetComponent<Rigidbody2D>().position.x<playerpos.x+20 || GetComponent<Rigidbody2D>().position.x > playerpos.x - 20)
         {
-            MoveToPlayer();
+            //MoveToPlayer();
+            MoveToPlayerVelocity();
         }
-        MoveRandom();
+        StartCoroutine(MoveRandom());
 	}
     void MoveToPlayer()
     {
-        // Inertia damping
-        GetComponent<Rigidbody2D>().velocity.Set(GetComponent<Rigidbody2D>().velocity.x - 10, GetComponent<Rigidbody2D>().velocity.y - 10);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector3 playerpos = (player.GetComponent<Transform>().position - rb.transform.position);
         playerpos.Set(playerpos.x, playerpos.y - 5, playerpos.z);
         // Moving towards the player
-        rb.AddForce(playerpos.normalized);
+        int rand = Random.Range(-2,2);
+        rb.AddForce(playerpos.normalized*rand);
     }
-    void MoveRandom()
+    IEnumerator MoveRandom()
     {
+        yield return new WaitForSeconds(0.1f);
         // Moving randomly
         int rand = Random.Range(0, 8);
         switch (rand)
@@ -50,6 +51,19 @@ public class CharacterScript : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+    void MoveToPlayerVelocity()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 playerpos = (player.GetComponent<Transform>().position - rb.transform.position);
+            playerpos.Set(playerpos.x, playerpos.y - 5, playerpos.z);
+            // Moving towards the player
+            rb.AddForce(playerpos.normalized);
+            rb.velocity.Set(playerpos.x*Random.Range(-2,2),playerpos.y * Random.Range(-2, 2));
+            if (rb.velocity.x>1 || rb.velocity.y>1)
+        {
+            rb.velocity.Set(rb.velocity.x,rb.velocity.y);
         }
     }
 }
