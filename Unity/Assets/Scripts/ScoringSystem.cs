@@ -23,12 +23,32 @@ public class ScoringSystem : MonoBehaviour {
         score+=pointsPerSeconds;
         StartCoroutine(counting());
     }
-    public void eliminateCRS()
+    public void eliminateCRS(int number)
     {
-        score += pointsByEliminatedCRS;
+        for(int i=1;i<number+1;i++)
+        {
+            if(i<4)
+            {
+                score += pointsByEliminatedCRS;
+            }
+            else
+            {
+                score += pointsByEliminatedCRS *i-2;
+            }
+        }
     }
-    public void convertCRS()
+    public void convertCRS(int number)
     {
-        score += pointsByConvertedCRS;
+        for (int i = 1; i < number + 1; i++)
+        {
+            if (i < 4)
+            {
+                score += pointsByConvertedCRS;
+            }
+            else
+            {
+                score += pointsByConvertedCRS * i - 2;
+            }
+        }
     }
 }
