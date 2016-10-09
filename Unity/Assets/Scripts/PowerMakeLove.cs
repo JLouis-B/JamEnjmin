@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PowerMakeLove : MonoBehaviour {
-    public GameObject spawned;
+    public GameObject[] spawned;
 
     private float previousTime;
 
@@ -31,7 +31,7 @@ public class PowerMakeLove : MonoBehaviour {
                 Vector3 v = crs.transform.position;
                 Destroy(crs);
                 GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().convertCRS(1);
-                GameObject go = (GameObject)GameObject.Instantiate(spawned, v, new Quaternion());
+				GameObject go = (GameObject)GameObject.Instantiate(spawned[(int)Random.Range(0,spawned.Length)],v,new Quaternion());
                 go.GetComponent<Rigidbody2D>().velocity = (new Vector2(Random.Range(-2f, 2f), 1));
                 go.GetComponent<Rigidbody2D>().drag = 1;
             }
