@@ -8,13 +8,14 @@ public class PowerAqua : MonoBehaviour {
 
     private bool _readyToClick = false;
 
-    public GameObject spawned;
 
     public int tempsChargement;
 
     private float previousTime;
 
     private float coolDown;
+
+    public GameObject[] spawned;
 
     void Start()
     {
@@ -66,7 +67,7 @@ public class PowerAqua : MonoBehaviour {
                     Vector3 v = crs.transform.position;
 					Destroy(crs);
                     converted++;
-                    GameObject go = (GameObject)GameObject.Instantiate(spawned,v,new Quaternion());
+                    GameObject go = (GameObject)GameObject.Instantiate(spawned[(int)Random.Range(0,spawned.Length)],v,new Quaternion());
                     go.GetComponent<Rigidbody2D>().velocity=(new Vector2(Random.Range(-2f, 2f),1));
                     go.GetComponent<Rigidbody2D>().drag = 1;
                 }
