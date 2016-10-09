@@ -60,7 +60,8 @@ public class CRS_Spawner : MonoBehaviour
 
 	void spawnWave()
 	{
-		if (_waveIndex < _waves.Length)
+        GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().incrementWave();
+        if (_waveIndex < _waves.Length)
 			_newWave = _waves [_waveIndex];
 		else {
 			_newWave = _waves [_waves.Length - 1];

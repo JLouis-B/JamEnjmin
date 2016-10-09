@@ -8,15 +8,17 @@ public class ScoringSystem : MonoBehaviour {
     public int pointsPerSeconds;
     public int pointsByConvertedCRS;
     public int pointsByEliminatedCRS;
+    private int currentWave;
 
 	// Use this for initialization
 	void Start () {
         StartCoroutine(counting());
+        currentWave = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = "Highscore : "+ PlayerPrefs.GetInt("highscore", 0) +"\n"+ textBefore + score.ToString();
+        GetComponent<Text>().text = "Highscore : "+ PlayerPrefs.GetInt("highscore", 0) +"\n"+ textBefore + score.ToString()+"\nWave : "+currentWave;
 	}
     IEnumerator counting()
     {
@@ -57,5 +59,9 @@ public class ScoringSystem : MonoBehaviour {
         int oldHighscore = PlayerPrefs.GetInt("highscore", 0);
         if (score > oldHighscore)
             PlayerPrefs.SetInt("highscore", score);
+    }
+    public void incrementWave()
+    {
+        currentWave += 1;
     }
 }
