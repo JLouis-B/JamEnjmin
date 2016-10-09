@@ -12,6 +12,7 @@ public class CRSController : MonoBehaviour
 	private Animator _anim = null;
 	private SpriteRenderer _sp = null;
 	private Vector3 _lastPos;
+	private bool _inTrigger = false;
 
 	void Start ()
 	{
@@ -55,8 +56,10 @@ public class CRSController : MonoBehaviour
 				direction.Normalize ();
 				direction *= _speed;
 				_rigidbody.velocity = direction;
-			} else {
+			} else if (!_inTrigger) {
 				_rigidbody.velocity = new Vector2 (0f, _speed);
+			} else {
+				_rigidbody.velocity = (GameObject.FindGameObjectWithTag ("Player").transform.position - transform.position).normalized * _speed;
 			}
 		} else {
 			_rigidbody.velocity = (transform.position - GameObject.FindGameObjectWithTag ("Scene").transform.position).normalized;
@@ -90,6 +93,12 @@ public class CRSController : MonoBehaviour
 	void OnCollisionExit2D(Collision2D coll)
 	{
 		_anim.SetBool ("Attack", false);
+	}
+
+	void OnTriggerEnter2D(Collider2D coll)
+	{
+		if (coll.gameObject.tag == "Scene")
+			_inTrigger = true;
 	}
 }
 
