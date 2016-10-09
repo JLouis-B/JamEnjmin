@@ -10,6 +10,8 @@ public class PowerMakeLove : MonoBehaviour {
 
     public int remaining;
 
+	public Animator _anim;
+
     public GameObject[] spawned;
 
 	AudioSource _audio;
@@ -27,6 +29,7 @@ public class PowerMakeLove : MonoBehaviour {
     {
         if (remaining>0)
         {
+			//_anim.SetTrigger ("Play");
 			_audio.Play ();
             remaining--;
             previousTime = Time.time;
