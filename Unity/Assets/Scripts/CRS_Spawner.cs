@@ -22,6 +22,8 @@ public class CRS_Spawner : MonoBehaviour
 	public int _minCRSperWave = 1;
 	public int _maxCRSperWave = 1;
 
+	public float _timeAdd = 1f;
+
 	private float _timer = 0f;
 	private int _waveIndex = 0;
 
@@ -37,7 +39,8 @@ public class CRS_Spawner : MonoBehaviour
 		int nbCRS = Random.Range (_minCRSperWave, _maxCRSperWave + 1);
 		float x = Random.Range (-_width, _width);
 		float y = _y;
-		for (int j = 0; j < nbCRS; ++j) {
+		for (int j = 0; j < nbCRS; ++j)
+		{
 			GameObject crs = GameObject.Instantiate (_spawnObject);
 
 			crs.transform.position = new Vector3 (x, y, crs.transform.position.z);
@@ -62,6 +65,8 @@ public class CRS_Spawner : MonoBehaviour
 		else {
 			_newWave = _waves [_waves.Length - 1];
 			_newWave.nbSpawns += (_waveIndex - _waves.Length);
+			_newWave.spawnTime += (_waveIndex - _waves.Length) * _timeAdd;
+			_newWave.fulltime += (_waveIndex - _waves.Length) * _timeAdd;
 		}
 
 		for (int i = 0; i < _newWave.nbSpawns; ++i)
