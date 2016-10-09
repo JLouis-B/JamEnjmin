@@ -82,6 +82,7 @@ public class CRSController : MonoBehaviour
 				_rigidbody.velocity = (GameObject.FindGameObjectWithTag ("Player").transform.position - transform.position).normalized * _speed;
 			}
 		} else {
+            gameObject.layer = 8;
 			_rigidbody.velocity = (transform.position - GameObject.FindGameObjectWithTag ("Scene").transform.position).normalized;
 		}
 	}

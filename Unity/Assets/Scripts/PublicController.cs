@@ -24,7 +24,8 @@ public class PublicController : MonoBehaviour {
 		if (_hp <= 0)
 		{
 			_rigidbody.velocity = (transform.position - _scene.transform.position).normalized;
-		}
+            gameObject.layer = 8;
+        }
 	}
 
 	public void Attack(Collider2D crs)
@@ -34,9 +35,8 @@ public class PublicController : MonoBehaviour {
 
 
 		if (_hp < 0) {
-			//Destroy (gameObject);
-			Physics2D.IgnoreCollision (GetComponent<Collider2D> (), crs);
-
+            //Destroy (gameObject);
+            //Physics2D.IgnoreCollision (GetComponent<Collider2D> (), crs);
 		}
 	}
 }
