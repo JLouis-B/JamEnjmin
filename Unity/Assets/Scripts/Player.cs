@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public Text _scoreBase;
 	public Text _scoreTemps;
 	public Text _scoreTotal;
+    public Text _scoreWave;
 
 	public float _hp = 1000f;
 
@@ -71,7 +72,6 @@ public class Player : MonoBehaviour {
 
     public void ResetVelocity()
     {
-        Debug.Log("test");
         _rb.velocity = Vector2.zero;
     }
 		
@@ -85,10 +85,12 @@ public class Player : MonoBehaviour {
 
 			int baseScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().score;
 			int timeScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().timepoints;
+            int wave = GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().currentWave;
 
-			_scoreBase.text = "Score : " + baseScore.ToString();
+            _scoreBase.text = "Score : " + baseScore.ToString();
 			_scoreTemps.text = "Bonus temps : " + timeScore.ToString();
 			_scoreTotal.text = "Total : " + (baseScore + timeScore).ToString();
+            _scoreWave.text = "Wave : " + wave;
 		}
 	}
 		
