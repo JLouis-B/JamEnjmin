@@ -12,8 +12,11 @@ public class PowerMakeLove : MonoBehaviour {
 
     public GameObject[] spawned;
 
+	AudioSource _audio;
+
     // Use this for initialization
     void Start () {
+		_audio = GetComponent<AudioSource> ();
     }
 	
 	// Update is called once per frame
@@ -24,7 +27,7 @@ public class PowerMakeLove : MonoBehaviour {
     {
         if (remaining>0)
         {
-			GetComponent<AudioSource> ().Play ();
+			_audio.Play ();
             remaining--;
             previousTime = Time.time;
             GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");

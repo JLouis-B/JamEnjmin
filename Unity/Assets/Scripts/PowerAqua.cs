@@ -17,8 +17,13 @@ public class PowerAqua : MonoBehaviour {
 
     public GameObject[] spawned;
 
+	AudioSource _audio;
+	public AudioClip _buttonSound;
+	public AudioClip _powerSound;
+
     void Start()
     {
+		_audio = GetComponent<AudioSource> ();
         previousTime = Time.time - tempsChargement;
     }
 
@@ -37,6 +42,9 @@ public class PowerAqua : MonoBehaviour {
     {
         if ((Time.time - previousTime > tempsChargement))
         {
+			_audio.clip = _buttonSound;
+			_audio.Play ();
+
             _readyToClick = true;
         }
     }
@@ -47,7 +55,9 @@ public class PowerAqua : MonoBehaviour {
         coolDown = Time.time - previousTime;
         if (Input.GetMouseButtonDown(0) && _readyToClick&& (Time.time - previousTime > tempsChargement))
         {
-			GetComponent<AudioSource> ().Play ();
+			_audio.clip = _powerSound;
+			_audio.Play ();
+
             coolDown = tempsChargement;
             previousTime = Time.time;
             _readyToClick = false;

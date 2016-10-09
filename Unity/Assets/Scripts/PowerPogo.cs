@@ -10,6 +10,15 @@ public class PowerPogo : MonoBehaviour
 
 	private bool _readyToClick = false;
 
+	AudioSource _audio;
+	public AudioClip _buttonSound;
+	public AudioClip _powerSound;
+
+	void Start()
+	{
+		_audio = GetComponent<AudioSource> ();
+	}
+
 	List<GameObject> getPublic()
 	{
 		GameObject[] publicObjs = GameObject.FindGameObjectsWithTag ("Public");
@@ -45,6 +54,9 @@ public class PowerPogo : MonoBehaviour
 
 	public void Pogo()
 	{
+		_audio.clip = _buttonSound;
+		_audio.Play ();
+
 		_readyToClick = true;
 	}
 
@@ -54,7 +66,9 @@ public class PowerPogo : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown (0) && _readyToClick)
 		{
-			GetComponent<AudioSource> ().Play ();
+			_audio.clip = _powerSound;
+			_audio.Play ();
+
 			List<GameObject> publicObjs = getPublic();
 			if (publicObjs.Count <= 0)
 				return;
