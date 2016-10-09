@@ -17,7 +17,7 @@ public class PowerMakeLove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //GetComponentsInChildren<Text>()[0].text = getCooldown();
+        GetComponentsInChildren<Text>()[0].text = getCooldown();
         coolDown = Time.time - previousTime;
     }
     public void MakeLove()
@@ -25,6 +25,7 @@ public class PowerMakeLove : MonoBehaviour {
         if (Time.time - previousTime > tempsChargement)
         {
             coolDown = tempsChargement;
+            previousTime = Time.time;
             GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
             foreach (GameObject crs in CrsObjs)
             {

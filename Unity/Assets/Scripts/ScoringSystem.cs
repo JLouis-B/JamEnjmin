@@ -16,7 +16,7 @@ public class ScoringSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = textBefore + score.ToString();
+        GetComponent<Text>().text = "Highscore : "+ PlayerPrefs.GetInt("highscore", 0) +"\n"+ textBefore + score.ToString();
 	}
     IEnumerator counting()
     {
@@ -51,5 +51,11 @@ public class ScoringSystem : MonoBehaviour {
                 score += pointsByConvertedCRS * i - 2;
             }
         }
+    }
+    public void OnDestroy()
+    {
+        int oldHighscore = PlayerPrefs.GetInt("highscore", 0);
+        if (score > oldHighscore)
+            PlayerPrefs.SetInt("highscore", score);
     }
 }
