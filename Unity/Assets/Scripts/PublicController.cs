@@ -8,16 +8,22 @@ public class PublicController : MonoBehaviour {
 
 	private Rigidbody2D _rigidbody = null;
 
+	private Vector3 _lastPos;
+	private float _lastHp;
+	private Animator _anim = null;
+
 	void Start ()
 	{
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		_scene = GameObject.FindGameObjectWithTag ("Scene");
+		_anim = GetComponent<Animator> ();
 
 		Debug.Log ("HP = " + _hp);
 	}
 	
 	void Update ()
 	{
+		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.y);
 		if (!Player.GamePhase)
 			return;
 		
@@ -26,6 +32,12 @@ public class PublicController : MonoBehaviour {
 			_rigidbody.velocity = (transform.position - _scene.transform.position).normalized;
             gameObject.layer = 8;
         }
+
+		Vector3 movement = transform.position - _lastPos;
+		_anim.SetBool ("face", (movement.y < 0));
+		_anim.SetBool ("matraque", (_lastHp != _hp));
+		_lastPos = transform.position;
+		_lastHp = _hp;
 	}
 
 	public void Attack(Collider2D crs)
