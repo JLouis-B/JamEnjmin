@@ -30,6 +30,7 @@ public class PowerMakeLove : MonoBehaviour {
             {
                 Vector3 v = crs.transform.position;
                 Destroy(crs);
+                GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().convertCRS();
                 GameObject.Instantiate(spawned, v, new Quaternion());
             }
         }

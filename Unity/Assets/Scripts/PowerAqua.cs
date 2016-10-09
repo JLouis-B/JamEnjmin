@@ -18,7 +18,7 @@ public class PowerAqua : MonoBehaviour {
 
     void Start()
     {
-        previousTime = Time.time - 1000;
+        previousTime = Time.time - tempsChargement;
     }
 
     List<GameObject> getPublic()
@@ -34,7 +34,10 @@ public class PowerAqua : MonoBehaviour {
 
     public void Aqua()
     {
-        _readyToClick = true;
+        if((Time.time - previousTime > tempsChargement))
+        {
+            _readyToClick = true;
+        }
     }
 
     void Update()
@@ -59,6 +62,8 @@ public class PowerAqua : MonoBehaviour {
                 {
                     Vector3 v = crs.transform.position;
 					Destroy(crs);
+                    //Scoooooore !;
+                    GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().convertCRS();
                     GameObject.Instantiate(spawned,v,new Quaternion());
                 }
             }

@@ -70,7 +70,9 @@ public class PowerPogo : MonoBehaviour
 
 				if (hp && distance < _radius)
 				{
-					crs.GetComponent<CRSController> ()._hp = false;
+                    //Scoooooore !
+                    GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().eliminateCRS();
+                    crs.GetComponent<CRSController> ()._hp = false;
 					nbTarget++;
 				}
 			}
