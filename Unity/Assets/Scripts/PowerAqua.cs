@@ -66,7 +66,9 @@ public class PowerAqua : MonoBehaviour {
                     Vector3 v = crs.transform.position;
 					Destroy(crs);
                     converted++;
-                    GameObject.Instantiate(spawned,v,new Quaternion());
+                    GameObject go = (GameObject)GameObject.Instantiate(spawned,v,new Quaternion());
+                    go.GetComponent<Rigidbody2D>().velocity=(new Vector2(Random.Range(-2f, 2f),1));
+                    go.GetComponent<Rigidbody2D>().drag = 1;
                 }
             }
             //Scoooooore !;

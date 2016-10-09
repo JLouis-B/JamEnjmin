@@ -9,11 +9,13 @@ public class ScoringSystem : MonoBehaviour {
     public int pointsByConvertedCRS;
     public int pointsByEliminatedCRS;
     private int currentWave;
+    private int timepoints;
 
 	// Use this for initialization
 	void Start () {
         StartCoroutine(counting());
         currentWave = 0;
+        timepoints = 0;
     }
 	
 	// Update is called once per frame
@@ -23,7 +25,7 @@ public class ScoringSystem : MonoBehaviour {
     IEnumerator counting()
     {
         yield return new WaitForSeconds(1);
-        score+=pointsPerSeconds;
+        timepoints+=pointsPerSeconds;
         StartCoroutine(counting());
     }
     public void eliminateCRS(int number)
@@ -63,5 +65,9 @@ public class ScoringSystem : MonoBehaviour {
     public void incrementWave()
     {
         currentWave += 1;
+    }
+    public string finalScore()
+    {
+        return "Time bonus : "+timepoints+"\nCRS points : "+score+"\nTotal : "+(timepoints+score);
     }
 }
