@@ -54,6 +54,7 @@ public class PowerAqua : MonoBehaviour {
             worldPos.z = 0;
 
             GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
+            int converted = 0;
             foreach (GameObject crs in CrsObjs)
             {
 				Vector3 distanceVect = worldPos - crs.transform.position;
@@ -64,11 +65,12 @@ public class PowerAqua : MonoBehaviour {
                 {
                     Vector3 v = crs.transform.position;
 					Destroy(crs);
-                    //Scoooooore !;
-                    GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().convertCRS();
+                    converted++;
                     GameObject.Instantiate(spawned,v,new Quaternion());
                 }
             }
+            //Scoooooore !;
+            GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().convertCRS(converted);
         }
     }
     public string getCooldown()

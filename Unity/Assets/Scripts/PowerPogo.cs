@@ -63,6 +63,7 @@ public class PowerPogo : MonoBehaviour
 
 			int nbTarget = 0;
 			GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag ("CRS");
+            int eliminated = 0;
 			foreach (GameObject crs in CrsObjs)
 			{
 				Vector3 distanceVect = worldPos - crs.transform.position;
@@ -72,14 +73,15 @@ public class PowerPogo : MonoBehaviour
 
 				if (hp && distance < _radius)
 				{
-                    //Scoooooore !
-                    GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().eliminateCRS();
                     crs.GetComponent<CRSController> ()._hp = false;
 					nbTarget++;
+                    eliminated++;
 				}
 			}
-				
-			if (nbTarget > 0)
+            //Scoooooore !
+            GameObject.FindGameObjectWithTag("ScoreSystem").GetComponent<ScoringSystem>().eliminateCRS(eliminated);
+
+            if (nbTarget > 0)
 			{
 				var specs = getPublicZone (worldPos);
 				for (int i = 0; i < _nbSpec; ++i) {
