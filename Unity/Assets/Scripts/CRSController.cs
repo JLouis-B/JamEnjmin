@@ -72,13 +72,9 @@ public class CRSController : MonoBehaviour
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D> ());
 		}
 
-		_anim.SetBool ("Attack", (coll.gameObject.tag == "Public"));
-
-
-		if (coll.gameObject.tag == "Scene") {
-			Application.Quit ();
-			Debug.Log ("FAIL");
-		}
+		string tag = coll.gameObject.tag;
+		if (tag == "Public" || tag == "Player")
+			_anim.SetBool ("Attack", true);
 	}
 
 	void OnCollisionStay2D(Collision2D coll)
@@ -87,7 +83,8 @@ public class CRSController : MonoBehaviour
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
 		}
 
-		_anim.SetBool ("Attack", (coll.gameObject.tag == "Public"));
+		if (tag == "Public" || tag == "Player")
+			_anim.SetBool ("Attack", true);
 	}
 
 	void OnCollisionExit2D(Collision2D coll)
