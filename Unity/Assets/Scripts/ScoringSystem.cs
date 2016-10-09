@@ -20,7 +20,7 @@ public class ScoringSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = "Highscore : "+ PlayerPrefs.GetInt("highscore", 0) +"\n"+ textBefore + score.ToString()+"\nWave : "+currentWave;
+        GetComponent<Text>().text = score.ToString();
 	}
     IEnumerator counting()
     {
