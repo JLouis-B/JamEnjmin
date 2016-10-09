@@ -1,25 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PowerMakeLove : MonoBehaviour {
     public GameObject spawned;
-	// Use this for initialization
-	void Start () {
-	
-	}
+
+    public int tempsChargement;
+
+    private float previousTime;
+
+    private float coolDown;
+    // Use this for initialization
+    void Start () {
+        previousTime = Time.time - tempsChargement;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        //GetComponentsInChildren<Text>()[0].text = getCooldown();
+        coolDown = Time.time - previousTime;
+    }
     public void MakeLove()
     {
-        GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
-        foreach (GameObject crs in CrsObjs)
+        if (Time.time - previousTime > tempsChargement)
         {
-            Vector3 v = crs.transform.position;
-            Destroy(crs);
-            GameObject.Instantiate(spawned, v, new Quaternion());
+            coolDown = tempsChargement;
+            GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
+            foreach (GameObject crs in CrsObjs)
+            {
+                Vector3 v = crs.transform.position;
+                Destroy(crs);
+                GameObject.Instantiate(spawned, v, new Quaternion());
+            }
+        }
+    }
+    public string getCooldown()
+    {
+        if (coolDown < tempsChargement)
+        {
+            return "Make Love\n" + Mathf.FloorToInt(tempsChargement - coolDown).ToString();
+        }
+        else
+        {
+            return "Make Love\nReady";
         }
     }
 }
