@@ -16,11 +16,14 @@ public class CRSController : MonoBehaviour
 	private Vector3 _lastPos;
 	private bool _inTrigger = false;
 
+	private AudioSource _audio;
+
 	void Start ()
 	{
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		_anim = GetComponent<Animator> ();
 		_sp = GetComponent<SpriteRenderer> ();
+		_audio = GetComponent<AudioSource> ();
 	}
 
 	void FixedUpdate()
@@ -93,9 +96,9 @@ public class CRSController : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "Public") {
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
-			if (!GetComponent<AudioSource> ().isPlaying && Random.Range (0, 11) == 5) {
-				GetComponent<AudioSource> ().clip = _sounds [Random.Range (0, _sounds.Length)];
-				GetComponent<AudioSource> ().Play ();
+			if (!_audio.isPlaying && Random.Range (0, 11) == 5) {
+				_audio.clip = _sounds [Random.Range (0, _sounds.Length)];
+				_audio.Play ();
 			}
 		}
 		if (coll.gameObject.tag == "Player") {
