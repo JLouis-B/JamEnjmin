@@ -8,6 +8,8 @@ public class CRSController : MonoBehaviour
 	public bool _hp = true;
 	public float _animSpeed = 20;
 
+	public AudioClip[] _sounds;
+
 	private Rigidbody2D _rigidbody = null;
 	private Animator _anim = null;
 	private SpriteRenderer _sp = null;
@@ -91,6 +93,10 @@ public class CRSController : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "Public") {
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
+			if (!GetComponent<AudioSource> ().isPlaying && Random.Range (0, 11) == 5) {
+				GetComponent<AudioSource> ().clip = _sounds [Random.Range (0, _sounds.Length)];
+				GetComponent<AudioSource> ().Play ();
+			}
 		}
 		if (coll.gameObject.tag == "Player") {
 			Debug.Log ("Coll PLAYER");
