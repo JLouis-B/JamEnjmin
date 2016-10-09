@@ -6,14 +6,32 @@ public class CRSController : MonoBehaviour
 	public float _speed = 1f;
 	public float _attackDistance = 1f;
 	public bool _hp = true;
+	public float _animSpeed = 20;
 
 	private Rigidbody2D _rigidbody = null;
+	private Animator _anim = null;
+	private SpriteRenderer _sp = null;
+	private Vector3 _lastPos;
 
 	void Start ()
 	{
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		_anim = GetComponent<Animator> ();
+		_sp = GetComponent<SpriteRenderer> ();
 	}
-	
+
+	void FixedUpdate()
+	{
+		Vector3 movement = transform.position - _lastPos;
+
+		_sp.flipX = (movement.x < 0);
+
+		_anim.SetFloat ("Speed", movement.magnitude * _animSpeed);
+		_lastPos = transform.position;
+
+		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.y);
+	}
+
 	void Update ()
 	{
 		if (_hp) {
@@ -22,7 +40,9 @@ public class CRSController : MonoBehaviour
 
 			GameObject[] publicObjs = GameObject.FindGameObjectsWithTag ("Public");
 			foreach (GameObject p in publicObjs) {
-				float distance = Vector3.Distance (transform.position, p.transform.position);
+				Vector3 distanceVect = transform.position - p.transform.position;
+				distanceVect.z = 0;
+				float distance = distanceVect.magnitude;
 				if (distance < _attackDistance && distance < bestTargetDist && p.GetComponent<PublicController> ()._hp > 0) {
 					target = p;
 					bestTargetDist = distance;
@@ -47,7 +67,12 @@ public class CRSController : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "Public") {
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D> ());
-		} else if (coll.gameObject.tag == "Scene") {
+		}
+
+		_anim.SetBool ("Attack", (coll.gameObject.tag == "Public"));
+
+
+		if (coll.gameObject.tag == "Scene") {
 			Application.Quit ();
 			Debug.Log ("FAIL");
 		}
@@ -58,6 +83,13 @@ public class CRSController : MonoBehaviour
 		if (coll.gameObject.tag == "Public") {
 			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
 		}
+
+		_anim.SetBool ("Attack", (coll.gameObject.tag == "Public"));
+	}
+
+	void OnCollisionExit2D(Collision2D coll)
+	{
+		_anim.SetBool ("Attack", false);
 	}
 }
 
