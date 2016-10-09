@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ScoringSystem : MonoBehaviour {
+    public string textBefore;
     public int score;
     public int pointsPerSeconds;
     public int pointsByConvertedCRS;
@@ -15,7 +16,7 @@ public class ScoringSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = score.ToString();
+        GetComponent<Text>().text = textBefore + score.ToString();
 	}
     IEnumerator counting()
     {
