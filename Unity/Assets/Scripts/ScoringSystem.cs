@@ -38,7 +38,7 @@ public class ScoringSystem : MonoBehaviour {
             }
             else
             {
-                score += pointsByEliminatedCRS *i-2;
+                score += pointsByEliminatedCRS *(i-2);
             }
         }
     }
@@ -52,7 +52,7 @@ public class ScoringSystem : MonoBehaviour {
             }
             else
             {
-                score += pointsByConvertedCRS * i - 2;
+                score += pointsByConvertedCRS * (i - 2);
             }
         }
     }
