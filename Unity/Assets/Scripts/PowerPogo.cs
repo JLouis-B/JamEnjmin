@@ -54,6 +54,7 @@ public class PowerPogo : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown (0) && _readyToClick)
 		{
+			GetComponent<AudioSource> ().Play ();
 			List<GameObject> publicObjs = getPublic();
 			if (publicObjs.Count <= 0)
 				return;

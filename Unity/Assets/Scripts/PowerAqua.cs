@@ -47,6 +47,7 @@ public class PowerAqua : MonoBehaviour {
         coolDown = Time.time - previousTime;
         if (Input.GetMouseButtonDown(0) && _readyToClick&& (Time.time - previousTime > tempsChargement))
         {
+			GetComponent<AudioSource> ().Play ();
             coolDown = tempsChargement;
             previousTime = Time.time;
             _readyToClick = false;
