@@ -24,6 +24,7 @@ public class PowerMakeLove : MonoBehaviour {
     {
         if (remaining>0)
         {
+			GetComponent<AudioSource> ().Play ();
             remaining--;
             previousTime = Time.time;
             GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag("CRS");
