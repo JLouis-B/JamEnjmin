@@ -65,7 +65,9 @@ public class PowerPogo : MonoBehaviour
 			GameObject[] CrsObjs = GameObject.FindGameObjectsWithTag ("CRS");
 			foreach (GameObject crs in CrsObjs)
 			{
-				float distance = Vector3.Distance (worldPos, crs.transform.position);
+				Vector3 distanceVect = worldPos - crs.transform.position;
+				distanceVect.z = 0;
+				float distance = distanceVect.magnitude;
 				bool hp = crs.GetComponent<CRSController> ()._hp;
 
 				if (hp && distance < _radius)
