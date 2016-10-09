@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PowerPogo : MonoBehaviour
 {
-	public float radius = 1f;
+	public float _radius = 1f;
+	public int _nbSpec = 1;
 
 	private bool _readyToClick = false;
-
-	void Start () {
-	
-	}
 
 	List<GameObject> getPublic()
 	{
@@ -23,10 +21,34 @@ public class PowerPogo : MonoBehaviour
 		return publics;
 	}
 
+	List<GameObject> getPublicZone(Vector3 pos)
+	{
+		var dict = new Dictionary<float, GameObject> ();
+
+		GameObject[] publicObjs = GameObject.FindGameObjectsWithTag ("Public");
+		foreach (GameObject p in publicObjs)
+			if (p.GetComponent<PublicController> ()._hp > 0)
+			{
+				float distance = Vector3.Distance (pos, p.transform.position);
+				dict.Add (distance, p);
+			}
+
+		var list = dict.Keys.ToList();
+		list.Sort();
+
+		List<GameObject> publics = new List<GameObject>();
+		foreach(var l in list)
+			publics.Add (dict [l]);
+
+		return publics;
+	}
+
 	public void Pogo()
 	{
 		_readyToClick = true;
 	}
+
+
 
 	void Update ()
 	{
@@ -46,20 +68,20 @@ public class PowerPogo : MonoBehaviour
 				float distance = Vector3.Distance (worldPos, crs.transform.position);
 				bool hp = crs.GetComponent<CRSController> ()._hp;
 
-				if (hp && distance < radius)
+				if (hp && distance < _radius)
 				{
 					crs.GetComponent<CRSController> ()._hp = false;
 					nbTarget++;
 				}
 			}
-
+				
 			if (nbTarget > 0)
-				nbTarget++;
-			for (int i = 0; i < nbTarget; ++i)
 			{
-				int id = Random.Range (0, publicObjs.Count - i);
-				publicObjs [id].GetComponent<PublicController>()._hp = -1;
-				publicObjs [id].GetComponent<Collider2D> ().enabled = false;
+				var specs = getPublicZone (worldPos);
+				for (int i = 0; i < _nbSpec; ++i) {
+					specs [i].GetComponent<PublicController> ()._hp = -1;
+					specs [i].GetComponent<Collider2D> ().enabled = false;
+				}
 			}
 				
 			_readyToClick = false;
