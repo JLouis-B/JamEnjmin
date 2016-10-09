@@ -9,7 +9,7 @@ public class ScoringSystem : MonoBehaviour {
     public int pointsByConvertedCRS;
     public int pointsByEliminatedCRS;
     private int currentWave;
-    private int timepoints;
+    public int timepoints;
 
 	// Use this for initialization
 	void Start () {

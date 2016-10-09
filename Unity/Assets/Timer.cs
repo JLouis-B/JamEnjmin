@@ -13,6 +13,9 @@ public class Timer : MonoBehaviour {
 	
 	void Update ()
 	{
+		if (!Player.GamePhase)
+			return;
+
 		_timer.text = "Temps : " + (int)Time.timeSinceLevelLoad;
 	}
 }
