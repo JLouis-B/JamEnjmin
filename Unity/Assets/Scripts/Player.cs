@@ -1,7 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour {
+
+	public GameObject _ecran = null;
+	public Text _scoreBase;
+	public Text _scoreTemps;
+	public Text _scoreTotal;
+
+	public float _hp = 1000f;
+
+
     public float _speed = 1f;
 	public float _maxAngle = 1f;
 
@@ -13,6 +23,7 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D _rb;
 	private float _movement = 0;
 
+	public static bool GamePhase = true;
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +33,8 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		_angle += _movement;
-		newPos ();
+		//_angle += _movement;
+		//newPos ();
 	}
 
 	void newPos()
@@ -63,4 +74,22 @@ public class Player : MonoBehaviour {
         Debug.Log("test");
         _rb.velocity = Vector2.zero;
     }
+		
+	public void Attack()
+	{
+		_hp--;
+		if (_hp <= 0 && GamePhase)
+		{
+			GamePhase = false;
+			_ecran.SetActive (true);
+
+			int baseScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().score;
+			int timeScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().timepoints;
+
+			_scoreBase.text = "Score : " + baseScore.ToString();
+			_scoreTemps.text = "Bonus temps : " + timeScore.ToString();
+			_scoreTotal.text = "Total : " + (baseScore + timeScore).ToString();
+		}
+	}
+		
 }

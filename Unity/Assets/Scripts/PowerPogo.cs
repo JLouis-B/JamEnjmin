@@ -84,9 +84,10 @@ public class PowerPogo : MonoBehaviour
             if (nbTarget > 0)
 			{
 				var specs = getPublicZone (worldPos);
-				for (int i = 0; i < _nbSpec; ++i) {
+				for (int i = 0; i < _nbSpec; ++i)
+				{
 					specs [i].GetComponent<PublicController> ()._hp = -1;
-					specs [i].GetComponent<Collider2D> ().enabled = false;
+					//specs [i].GetComponent<Collider2D> ().enabled = false;
 				}
 			}
 				

@@ -18,6 +18,9 @@ public class PublicController : MonoBehaviour {
 	
 	void Update ()
 	{
+		if (!Player.GamePhase)
+			return;
+		
 		if (_hp <= 0)
 		{
 			_rigidbody.velocity = (transform.position - _scene.transform.position).normalized;

@@ -33,22 +33,42 @@ public class CRSController : MonoBehaviour
 		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.y);
 	}
 
+	float getDistance(Vector3 a, Vector3 b)
+	{
+		Vector3 distanceVect = a - b;
+		distanceVect.z = 0;
+		return distanceVect.magnitude;
+	}
+
 	void Update ()
 	{
+		if (!Player.GamePhase)
+			return;
+		
 		if (_hp) {
 			GameObject target = null;
 			float bestTargetDist = 1000000f;
 
 			GameObject[] publicObjs = GameObject.FindGameObjectsWithTag ("Public");
-			foreach (GameObject p in publicObjs) {
-				Vector3 distanceVect = transform.position - p.transform.position;
-				distanceVect.z = 0;
-				float distance = distanceVect.magnitude;
-				if (distance < _attackDistance && distance < bestTargetDist && p.GetComponent<PublicController> ()._hp > 0) {
+			foreach (GameObject p in publicObjs)
+			{
+				float distance = getDistance(transform.position, p.transform.position);
+				if (distance < _attackDistance && distance < bestTargetDist && p.GetComponent<PublicController> ()._hp > 0)
+				{
 					target = p;
 					bestTargetDist = distance;
 				}
 			}
+
+			/*
+			GameObject player = GameObject.FindGameObjectWithTag ("Player");
+			float distancePlayer = getDistance (player.transform.position, transform.position);
+			if (distancePlayer < _attackDistance && distancePlayer < bestTargetDist)
+			{
+				target = player;
+				bestTargetDist = distancePlayer;
+			}
+			*/
 
 			if (target != null) {
 				Vector3 direction = target.transform.position - transform.position;
@@ -66,10 +86,14 @@ public class CRSController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D coll)
+	void checkCollisions(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Public") {
-			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D> ());
+			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
+		}
+		if (coll.gameObject.tag == "Player") {
+			Debug.Log ("Coll PLAYER");
+			coll.gameObject.GetComponent<Player> ().Attack ();
 		}
 
 		string tag = coll.gameObject.tag;
@@ -77,14 +101,15 @@ public class CRSController : MonoBehaviour
 			_anim.SetBool ("Attack", true);
 	}
 
+
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		checkCollisions (coll);
+	}
+
 	void OnCollisionStay2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Public") {
-			coll.gameObject.GetComponent<PublicController> ().Attack (GetComponent<Collider2D>());
-		}
-
-		if (tag == "Public" || tag == "Player")
-			_anim.SetBool ("Attack", true);
+		checkCollisions (coll);
 	}
 
 	void OnCollisionExit2D(Collision2D coll)
