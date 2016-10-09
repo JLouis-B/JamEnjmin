@@ -8,6 +8,9 @@ public class PowerPogo : MonoBehaviour
 	public float _radius = 1f;
 	public int _nbSpec = 1;
 
+
+	public Animator _anim;
+
 	private bool _readyToClick = false;
 
 	AudioSource _audio;
@@ -66,6 +69,7 @@ public class PowerPogo : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown (0) && _readyToClick)
 		{
+			_anim.SetTrigger ("Play");
 			_audio.clip = _powerSound;
 			_audio.Play ();
 
