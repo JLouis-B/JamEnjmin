@@ -12,8 +12,8 @@ public class PowerMakeLove : MonoBehaviour {
     private float coolDown;
     // Use this for initialization
     void Start () {
-	
-	}
+        previousTime = Time.time - tempsChargement;
+    }
 	
 	// Update is called once per frame
 	void Update () {

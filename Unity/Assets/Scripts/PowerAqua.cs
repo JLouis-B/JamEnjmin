@@ -18,6 +18,7 @@ public class PowerAqua : MonoBehaviour {
 
     void Start()
     {
+        previousTime = Time.time - 1000;
     }
 
     List<GameObject> getPublic()
