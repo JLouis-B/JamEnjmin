@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PowerAqua : MonoBehaviour {
-    public ParticleSystem pe;
     public float radius = 1f;
 
     private bool _readyToClick = false;
 
     public GameObject spawned;
+
+    public int tempsChargement;
+
+    private float previousTime;
+
+    private float coolDown;
 
     void Start()
     {
@@ -32,8 +38,12 @@ public class PowerAqua : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && _readyToClick)
+        GetComponentsInChildren<Text>()[0].text = getCooldown();
+        coolDown = Time.time - previousTime;
+        if (Input.GetMouseButtonDown(0) && _readyToClick&& (Time.time - previousTime > tempsChargement))
         {
+            coolDown = tempsChargement;
+            previousTime = Time.time;
             _readyToClick = false;
 
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -51,6 +61,17 @@ public class PowerAqua : MonoBehaviour {
                     GameObject.Instantiate(spawned,v,new Quaternion());
                 }
             }
+        }
+    }
+    public string getCooldown()
+    {
+        if (coolDown<tempsChargement)
+        {
+            return "Aqua\n" + Mathf.FloorToInt(tempsChargement - coolDown).ToString();
+        }
+        else
+        {
+            return "Aqua\nReady";
         }
     }
 }
