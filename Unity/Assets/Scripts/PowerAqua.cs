@@ -34,7 +34,7 @@ public class PowerAqua : MonoBehaviour {
 
     public void Aqua()
     {
-        if((Time.time - previousTime > tempsChargement))
+        if ((Time.time - previousTime > tempsChargement))
         {
             _readyToClick = true;
         }
