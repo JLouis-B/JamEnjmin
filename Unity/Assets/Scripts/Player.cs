@@ -81,7 +81,12 @@ public class Player : MonoBehaviour {
 		if (_hp <= 0 && GamePhase)
 		{
 			GamePhase = false;
-			_ecran.SetActive (true);
+            //Storing highscore
+            int oldHighscore = PlayerPrefs.GetInt("highscore", 0);
+            if (GameObject.FindObjectOfType<ScoringSystem>().score > oldHighscore)
+                PlayerPrefs.SetInt("highscore", GameObject.FindObjectOfType<ScoringSystem>().score);
+
+            _ecran.SetActive (true);
 
 			int baseScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().score;
 			int timeScore = GameObject.FindGameObjectWithTag ("ScoreSystem").GetComponent<ScoringSystem> ().timepoints;

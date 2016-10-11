@@ -17,8 +17,6 @@ public class PublicController : MonoBehaviour {
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		_scene = GameObject.FindGameObjectWithTag ("Scene");
 		_anim = GetComponent<Animator> ();
-
-		Debug.Log ("HP = " + _hp);
 	}
 	
 	void Update ()

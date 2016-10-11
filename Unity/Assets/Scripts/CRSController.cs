@@ -102,7 +102,6 @@ public class CRSController : MonoBehaviour
 			}
 		}
 		if (coll.gameObject.tag == "Player") {
-			Debug.Log ("Coll PLAYER");
 			coll.gameObject.GetComponent<Player> ().Attack ();
 		}
 
