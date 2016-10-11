@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Pause : MonoBehaviour {
-    private bool paused = false;
+    public static bool paused = false;
 	// Use this for initialization
 	void Start () {
 	

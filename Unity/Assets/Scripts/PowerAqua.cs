@@ -40,7 +40,7 @@ public class PowerAqua : MonoBehaviour {
 
     public void Aqua()
     {
-        if ((Time.time - previousTime > tempsChargement))
+        if ((Time.time - previousTime > tempsChargement)&&Time.timeScale==1)
         {
 			_audio.clip = _buttonSound;
 			_audio.Play ();

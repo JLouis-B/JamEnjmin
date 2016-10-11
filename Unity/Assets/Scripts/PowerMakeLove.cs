@@ -27,7 +27,7 @@ public class PowerMakeLove : MonoBehaviour {
     }
     public void MakeLove()
     {
-        if (remaining>0)
+        if (remaining>0&&Time.timeScale==1)
         {
 			//_anim.SetTrigger ("Play");
 			_audio.Play ();

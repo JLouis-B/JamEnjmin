@@ -57,10 +57,13 @@ public class PowerPogo : MonoBehaviour
 
 	public void Pogo()
 	{
-		_audio.clip = _buttonSound;
-		_audio.Play ();
+        if (Time.timeScale == 1)
+        {
+            _audio.clip = _buttonSound;
+            _audio.Play();
 
-		_readyToClick = true;
+            _readyToClick = true;
+        }
 	}
 
 
