@@ -44,6 +44,6 @@ public class PowerMakeLove : MonoBehaviour {
     }
     public string getCooldown()
     {
-        return "Make Love\n"+remaining;
+        return remaining.ToString();
     }
 }

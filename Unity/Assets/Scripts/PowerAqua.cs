@@ -91,11 +91,11 @@ public class PowerAqua : MonoBehaviour {
     {
         if (coolDown<tempsChargement)
         {
-            return "Aqua\n" + Mathf.FloorToInt(tempsChargement - coolDown).ToString();
+            return Mathf.FloorToInt(tempsChargement - coolDown).ToString();
         }
         else
         {
-            return "Aqua\nReady";
+            return "";
         }
     }
 }
