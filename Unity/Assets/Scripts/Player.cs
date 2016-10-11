@@ -83,8 +83,8 @@ public class Player : MonoBehaviour {
 			GamePhase = false;
             //Storing highscore
             int oldHighscore = PlayerPrefs.GetInt("highscore", 0);
-            if (GameObject.FindObjectOfType<ScoringSystem>().score > oldHighscore)
-                PlayerPrefs.SetInt("highscore", GameObject.FindObjectOfType<ScoringSystem>().score);
+            if (GameObject.FindObjectOfType<ScoringSystem>().finalScore() > oldHighscore)
+                PlayerPrefs.SetInt("highscore", GameObject.FindObjectOfType<ScoringSystem>().finalScore());
 
             _ecran.SetActive (true);
 

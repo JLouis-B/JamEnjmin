@@ -56,18 +56,12 @@ public class ScoringSystem : MonoBehaviour {
             }
         }
     }
-    public void OnDestroy()
-    {
-        int oldHighscore = PlayerPrefs.GetInt("highscore", 0);
-        if (score > oldHighscore)
-            PlayerPrefs.SetInt("highscore", score);
-    }
     public void incrementWave()
     {
         currentWave += 1;
     }
-    public string finalScore()
+    public int finalScore()
     {
-        return "Time bonus : "+timepoints+"\nCRS points : "+score+"\nTotal : "+(timepoints+score);
+        return (timepoints+score);
     }
 }
